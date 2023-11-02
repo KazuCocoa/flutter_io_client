@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:http/io_client.dart';
+import 'dart:io';
 
 void main() {
   runApp(const MyApp());
@@ -59,6 +61,13 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void _incrementCounter() {
     setState(() {
+      final ioc = new HttpClient();
+      ioc.badCertificateCallback = (X509Certificate cert, String host, int port) => true;
+      final http = new IOClient(ioc);
+      var url = Uri.https('www.youtube.com');
+      var r = http.get(url);
+      print(r);
+
       // This call to setState tells the Flutter framework that something has
       // changed in this State, which causes it to rerun the build method below
       // so that the display can reflect the updated values. If we changed
